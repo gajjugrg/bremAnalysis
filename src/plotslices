@@ -1,0 +1,5 @@
+root -l -q -b 'plotSlices.C("../outputfiles/bremG4_v10_100GeV.root", "../outputfiles/slicesG4_100GeV.root")'
+
+root -l -q -b 'plotSlices.C("../outputfiles/brem_ALP_100GeV_bias_1e9.root", "../outputfiles/slicesDMG4_100GeV_bias_e9.root")'
+
+root -l -b -q 'plotSlices.C("../outputfiles/brem_ALP_100GeV_bias_1e-15.root", "../outputfiles/slicesDMG4_100GeV_bias_e-15.root")'
