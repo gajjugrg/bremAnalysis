@@ -23,10 +23,8 @@ void plotSlices(const char* inputfilename, const char* outputFilename){
 	ana->SetBranchAddress("fTrackLength_X0", &fTrackLength_X0);
 	ana->SetBranchAddress("fProcess", &fProcess);
 
-//	Double_t Energy[3] = {100, 300, 700};
-
-
-	Double_t Energy[3] = {10, 30, 45};
+        //Double_t Energy[3] = {1, 3, 5};  //10 GeV case
+	Double_t Energy[3] = {10, 30, 45}; //100 GeV case
 	// Initialize the 1-D histogram for each slice of energy
 	TH1D* slice0 = new TH1D("slice0", "; Depth in units of Radiation Length; Probability / Bin ", 100, 0, 10);
 	slice0 -> SetLineColor(8);
@@ -43,7 +41,7 @@ void plotSlices(const char* inputfilename, const char* outputFilename){
 		if(fKineticEnergy >= (Energy[1]*1000-10) && fKineticEnergy < (Energy[1]*1000+10)){slice1->Fill(fTrackLength_X0);}
 		if(fKineticEnergy >= (Energy[2]*1000-10) && fKineticEnergy < (Energy[2]*1000+10)){slice2->Fill(fTrackLength_X0);}
 	}
-	auto c = new TCanvas("c","c");
+	/*auto c = new TCanvas("c","c");
 	slice0->DrawNormalized("e1p");
 	slice1->DrawNormalized("e1p same");
 	slice2->DrawNormalized("e1p same");
@@ -55,6 +53,7 @@ void plotSlices(const char* inputfilename, const char* outputFilename){
 	legend->AddEntry(slice1, Form("%.f GeV", Energy[1]) ,"l");
 	legend->AddEntry(slice2, Form("%.f GeV", Energy[2]) ,"l");
 	legend->Draw();
+	*/
 	TFile f(outputFilename,"recreate");
 	slice0->Write();
 	slice1->Write();

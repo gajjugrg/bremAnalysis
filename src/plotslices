@@ -1,5 +1,6 @@
-root -l -q -b 'plotSlices.C("../outputfiles/bremG4_v10_100GeV.root", "../outputfiles/slicesG4_100GeV.root")'
+#!/bin/bash
 
-root -l -q -b 'plotSlices.C("../outputfiles/brem_ALP_100GeV_bias_1e9.root", "../outputfiles/slicesDMG4_100GeV_bias_e9.root")'
+export OUTPUT=/cluster/home/ggurung/outputfiles
 
-root -l -b -q 'plotSlices.C("../outputfiles/brem_ALP_100GeV_bias_1e-15.root", "../outputfiles/slicesDMG4_100GeV_bias_e-15.root")'
+root -l -q -b 'plotSlices.C("$OUTPUT/brem/dmg4_ebrem_100GeV_bias_1e5.root", "$OUTPUT/slices/slices_100GeV_bias_e5.root")'
+root -l -q -b 'plotSlices.C("$OUTPUT/brem/dmg4_ebrem_100GeV_eps_1e-15.root", "$OUTPUT/slices/slices_100GeV_bias_e-15.root")'
