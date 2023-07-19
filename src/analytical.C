@@ -8,9 +8,9 @@ Double_t Intensity(Double_t E_0, Double_t E, Double_t t){
 }
 void analytical(){
     Int_t N = 20000;
-    Double_t E_0 = 10 ; //Initial Energy of the initial electron shot 
-//    Double_t E_i[3] = {, , };     //Energy slice 1 GeV
-    Double_t E_i[3] = {1, 3, 5};  //Energy slice 10 GeV
+    Double_t E_0 = 1 ; //Initial Energy of the initial electron shot 
+    Double_t E_i[3] = {.1, .3, .5};     //Energy slice 1 GeV
+//    Double_t E_i[3] = {1, 3, 5};  //Energy slice 10 GeV
 //    Double_t E_i[3] = {10, 30, 45}; //Energy slice 100 GeV
 
     Double_t delta_t = 0.001; //Step in track length
