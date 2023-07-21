@@ -6,12 +6,12 @@
 Double_t Intensity(Double_t E_0, Double_t E, Double_t t){
     return (1/E_0)*(1/tgamma(4*t/3))*pow(log(E_0/E),4*t/3-1);
 }
-void analytical(){
+void analytical(Double_t E_0){
     Int_t N = 20000;
-    Double_t E_0 = 1 ; //Initial Energy of the initial electron shot 
-    Double_t E_i[3] = {.1, .3, .5};     //Energy slice 1 GeV
-//    Double_t E_i[3] = {1, 3, 5};  //Energy slice 10 GeV
-//    Double_t E_i[3] = {10, 30, 45}; //Energy slice 100 GeV
+    Double_t E_i[3];
+    E_i[0] = 0.3*E_0;
+    E_i[1] = 0.5*E_0;
+    E_i[2] = 0.7*E_0;
 
     Double_t delta_t = 0.001; //Step in track length
     Double_t delta_E = 0.00001; //Step in Energy (for +- 100 MeV)
@@ -45,7 +45,7 @@ void analytical(){
     slice[1] -> DrawNormalized("hist same");
     slice[2] -> DrawNormalized("hist same");
 
-    TFile f(Form("../outputfiles/slices/slicesAna_%.fGeV.root", E_0),"recreate");
+    TFile f(Form("../outputfiles/slices/slicesAna_%.1fGeV.root", E_0),"recreate");
     slice[0] -> Write();
     slice[1] -> Write();
     slice[2] -> Write();

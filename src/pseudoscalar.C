@@ -1,29 +1,29 @@
-void pseudoscalar(){
-    Double_t E0 = 1; //Initial electron energy in GeV
-    Double_t Energy[3] = {.1, .3, .5}; //For 1 GeV
-    //Double_t Energy[3] = {1, 3, 5}; //For 10 GeV
-    //Double_t Energy[3] = {10, 30, 45}; //for 100 GeV
+void pseudoscalar(Double_t E0){
+    Double_t Energy[3]; 
+    Energy[0] = 0.3*E0;
+    Energy[1] = 0.5*E0;
+    Energy[2] = 0.7*E0;
 
     TH1F* ANA[3];
-    TFile* g = new TFile(Form("/Users/Gajju/bremANAlysis/outputfiles/slices/slicesANA_%.fGeV.root", E0));
+    TFile* g = new TFile(Form("/Users/Gajju/bremAnalysis/outputfiles/slices/slicesANA_%.1fGeV.root", E0));
     ANA[0] = (TH1F*)g -> Get("slice0"); ANA[0] -> SetLineColor(7);
     ANA[1] = (TH1F*)g -> Get("slice1"); ANA[1] -> SetLineColor(7);
     ANA[2] = (TH1F*)g -> Get("slice2"); ANA[2] -> SetLineColor(7);
 
     TH1F* MC[3];
-    TFile* f = new TFile(Form("/Users/Gajju/bremANAlysis/outputfiles/slices_g4_%.fGeV.root", E0));
+    TFile* f = new TFile(Form("/Users/Gajju/bremAnalysis/outputfiles/slices/slices_g4_%.1fGeV.root", E0));
     MC[0] = (TH1F*)f -> Get("slice0"); MC[0] -> SetLineColor(9); MC[0] -> Sumw2();
     MC[1] = (TH1F*)f -> Get("slice1"); MC[1] -> SetLineColor(9); MC[1] -> Sumw2();
     MC[2] = (TH1F*)f -> Get("slice2"); MC[2] -> SetLineColor(9); MC[2] -> Sumw2();
 
     TH1F* DMG4_bias[3];
-    TFile* i = new TFile(Form("/Users/Gajju/bremANAlysis/outputfiles/slices_%.fGeV_bias_e7.root", E0));
+    TFile* i = new TFile(Form("/Users/Gajju/bremAnalysis/outputfiles/slices/slices_vec_%.1fGeV_bias_1.root", E0));
     DMG4_bias[0] = (TH1F*)i -> Get("slice0"); DMG4_bias[0] -> SetLineColor(2);
     DMG4_bias[1] = (TH1F*)i -> Get("slice1"); DMG4_bias[1] -> SetLineColor(2);
     DMG4_bias[2] = (TH1F*)i -> Get("slice2"); DMG4_bias[2] -> SetLineColor(2);
 
     TH1F* DMG4_0[3];
-    TFile* h = new TFile(Form("/Users/Gajju/bremANAlysis/outputfiles/slices_%.fGeV_bias_e-15.root", E0));
+    TFile* h = new TFile(Form("/Users/Gajju/bremAnalysis/outputfiles/slices/slices_vec_%.1fGeV_bias_1.root", E0));
     DMG4_0[0] = (TH1F*)h -> Get("slice0"); DMG4_0[0] -> SetLineColor(1);
     DMG4_0[1] = (TH1F*)h -> Get("slice1"); DMG4_0[1] -> SetLineColor(1);
     DMG4_0[2] = (TH1F*)h -> Get("slice2"); DMG4_0[2] -> SetLineColor(1);
@@ -56,15 +56,15 @@ void pseudoscalar(){
     tx->SetTextFont(82);
     tx->SetTextSize(0.04);
     tx->SetTextAlign(13);
-    tx->DrawLatex(4.79, 0.027, Form("Initial e- energy: %.f GeV", E0));
-    tx->DrawLatex(5.14, 0.025, Form("Final e- energy: %.f GeV", Energy[0]));
+    tx->DrawLatex(4.79, 0.027, Form("Initial e- energy: %.1f GeV", E0));
+    tx->DrawLatex(5.14, 0.025, Form("Final e- energy: %.1f GeV", Energy[0]));
     // Adding legend
     auto leg = new TLegend();
     leg->SetHeader("Legend","C");
     leg->AddEntry(ANA[0],"ANA","le");
     leg->AddEntry(MC[0],"G4","le");
     leg->AddEntry(DMG4_bias[0],"DMG4 bias 1e7","le");
-    leg->AddEntry(DMG4_0[0],"DMG4 bias 1e-15","le");
+    leg->AddEntry(DMG4_0[0],"DMG4 bias 1","le");
     leg->Draw();
 
     // Moving into Pad b
@@ -100,18 +100,18 @@ void pseudoscalar(){
     DMG4_0[1]->Draw("e1p same");
 
     TLatex* tx1 = new TLatex();
-    tx1->SetTextFont(82);  // Font type (42 is a commonly used font)
+    tx1->SetTextFont(82); 
     tx1->SetTextSize(0.04);
     tx1->SetTextAlign(13);  // Align at top
 
-    tx1->DrawLatex(4.79, 0.04, Form("Initial e- energy: %.f GeV", E0));
-    tx1->DrawLatex(5.74, 0.035, Form("Final e- energy: %.f GeV", Energy[1]));
+    tx1->DrawLatex(4.79, 0.04, Form("Initial e- energy: %.1f GeV", E0));
+    tx1->DrawLatex(5.74, 0.035, Form("Final e- energy: %.1f GeV", Energy[1]));
     auto leg1 = new TLegend();
     leg1->SetHeader("Legend","C");
     leg1->AddEntry(ANA[1],"ANA","le");
     leg1->AddEntry(MC[1],"G4","le");
     leg1->AddEntry(DMG4_bias[1],"DMG4 bias 1e7","le");
-    leg1->AddEntry(DMG4_0[1],"DMG4 bias 1e-15","le");
+    leg1->AddEntry(DMG4_0[1],"DMG4 bias 1","le");
     leg1->Draw();
 
     // Moving into Pad d
@@ -151,15 +151,15 @@ void pseudoscalar(){
     tx2->SetTextSize(0.04);
     tx2->SetTextAlign(13); 
 
-    tx2->DrawLatex(5.79, 0.045, Form("Initial e- energy: %.f GeV", E0));
-    tx2->DrawLatex(5.74, 0.04, Form("Final e- energy: %.f GeV", Energy[2]));
+    tx2->DrawLatex(5.79, 0.045, Form("Initial e- energy: %.1f GeV", E0));
+    tx2->DrawLatex(5.74, 0.04, Form("Final e- energy: %.1f GeV", Energy[2]));
 
     auto leg2 = new TLegend();
     leg2->SetHeader("Legend","C");
     leg2->AddEntry(ANA[2],"ANA","le");
     leg2->AddEntry(MC[2],"G4","le");
     leg2->AddEntry(DMG4_bias[2],"DMG4 bias 1e7","le");
-    leg2->AddEntry(DMG4_0[2],"DMG4 bias 1e-15","le");
+    leg2->AddEntry(DMG4_0[2],"DMG4 bias 1","le");
     leg2->Draw();
 
     padf -> cd();

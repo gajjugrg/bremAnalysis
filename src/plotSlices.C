@@ -5,7 +5,7 @@
 #include <TFile.h>
 #include <TTree.h>
 
-void plotSlices(const char* inputfilename, const char* outputFilename, int E0){
+void plotSlices(const char* inputfilename, const char* outputFilename, Double_t E0){
     TFile* file = new TFile(inputfilename, "read");
     TTree* ana = (TTree*)file->Get("brem");
     Double_t nEntries = ana->GetEntries();
