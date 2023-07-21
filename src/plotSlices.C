@@ -5,7 +5,7 @@
 #include <TFile.h>
 #include <TTree.h>
 
-void plotSlices(const char* inputfilename, const char* outputFilename){
+void plotSlices(const char* inputfilename, const char* outputFilename, int E0){
     TFile* file = new TFile(inputfilename, "read");
     TTree* ana = (TTree*)file->Get("brem");
     Double_t nEntries = ana->GetEntries();
@@ -20,9 +20,10 @@ void plotSlices(const char* inputfilename, const char* outputFilename){
     ana->SetBranchAddress("fKineticEnergy", &fKineticEnergy);
     ana->SetBranchAddress("fTrackLength_X0", &fTrackLength_X0);
     ana->SetBranchAddress("fProcess", &fProcess);
-    Double_t Energy[3] = {.1, .3, .5};//1 GeV case
-    //  Double_t Energy[3] = {1, 3, 5};  //10 GeV case
-    //	Double_t Energy[3] = {10, 30, 45}; //100 GeV case
+    Double_t Energy[3];
+    Energy[0] = 0.3*E0;
+    Energy[1] = 0.5*E0;
+    Energy[2] = 0.7*E0;
     cout << Energy [0] << " ------ " << Energy[1] <<" ------ " << Energy[2] << endl; 
     // Initialize the 1-D histogram for each slice of energy
     TH1D* slice0 = new TH1D("slice0", "; Depth in units of Radiation Length; Probability / Bin ", 100, 0, 10);
